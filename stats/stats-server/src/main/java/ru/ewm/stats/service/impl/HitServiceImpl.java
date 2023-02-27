@@ -22,7 +22,7 @@ import static ru.ewm.stats.mapper.EndpointHitMapper.toEndpointHitDto;
 public class HitServiceImpl implements HitService {
 
     private final EndpointHitRepository repository;
-    private final String PATTERN = "yyyy-MM-dd HH:mm:ss";
+    static final String PATTERN = "yyyy-MM-dd HH:mm:ss";
     private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(PATTERN);
 
     @Transactional

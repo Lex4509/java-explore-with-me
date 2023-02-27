@@ -13,7 +13,7 @@ public class ExceptionHandler {
 
     @org.springframework.web.bind.annotation.ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleValidationException(final ValidationException e){
+    public ErrorResponse handleValidationException(final ValidationException e) {
         log.warn(e.getMessage());
         return new ErrorResponse(e.getMessage());
     }
