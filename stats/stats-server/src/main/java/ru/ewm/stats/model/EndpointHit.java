@@ -1,6 +1,5 @@
 package ru.ewm.stats.model;
 
-import dto.ViewStatsDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
