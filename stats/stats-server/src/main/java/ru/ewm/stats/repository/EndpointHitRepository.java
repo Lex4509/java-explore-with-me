@@ -9,9 +9,19 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface EndpointHitRepository extends JpaRepository<EndpointHit, Long> {
-    @Query(nativeQuery = true, name = "ViewStatsDtos")
+    @Query("select h.app, h.uri, count(h.ip) as ehits from EndpointHit as h " +
+            "where h.timestamp > ?1 " +
+            "and h.timestamp < ?2 " +
+            "and h.uri in ?3 " +
+            "group by h.app, h.uri " +
+            "order by ehits desc")
     List<ViewStatsDto> getStats(LocalDateTime start, LocalDateTime end, List<String> uris);
 
-    @Query(nativeQuery = true, name = "ViewStatsDtosUniqueIps")
+    @Query("select h.app, h.uri, count(distinct (h.ip)) as ehits from hits as h " +
+            "where h.timestamp > ?1 " +
+            "and h.timestamp < ?2 " +
+            "and h.uri in ?3 " +
+            "group by h.app, h.uri " +
+            "order by ehits desc")
     List<ViewStatsDto> getStatsUniqueIps(LocalDateTime start, LocalDateTime end, List<String> uris);
 }

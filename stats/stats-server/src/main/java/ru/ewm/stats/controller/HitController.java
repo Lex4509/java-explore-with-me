@@ -18,8 +18,6 @@ import java.util.List;
 @Validated
 public class HitController {
     private final HitService hitService;
-//    private final String PATTERN = "yyyy-MM-dd HH:mm:ss";
-//    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(PATTERN);
 
     @Autowired
     public HitController(HitService hitService) {
@@ -38,11 +36,6 @@ public class HitController {
                                            @RequestParam(name = "end") String end,
                                            @RequestParam(name = "uris", defaultValue = "") List<String> uris,
                                            @RequestParam(name = "unique", defaultValue = "false") Boolean unique) {
-//        LocalDateTime startDateTime = LocalDateTime.parse(start, dateTimeFormatter);
-//        LocalDateTime endDateTime = LocalDateTime.parse(end, dateTimeFormatter);
-//        if (startDateTime.isAfter(LocalDateTime.now())) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
         log.info("Get stats from = {} to = {} about uris = {} where unique ids = {}",
                 start, end, uris, unique);
         List<ViewStatsDto> stats = hitService.getStats(start, end, uris, unique);

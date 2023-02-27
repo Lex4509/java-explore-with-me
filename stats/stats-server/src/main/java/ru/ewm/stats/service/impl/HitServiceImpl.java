@@ -39,7 +39,6 @@ public class HitServiceImpl implements HitService {
         LocalDateTime endDateTime = LocalDateTime.parse(end, dateTimeFormatter);
         if (startDateTime.isAfter(LocalDateTime.now())) {
             throw new ValidationException("Start date might not be in the future");
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (unique) {
             return repository.getStatsUniqueIps(startDateTime, endDateTime, uris);
