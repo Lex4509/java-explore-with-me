@@ -17,7 +17,7 @@ public interface EndpointHitRepository extends JpaRepository<EndpointHit, Long> 
             "order by ehits desc")
     List<ViewStatsDto> getStats(LocalDateTime start, LocalDateTime end, List<String> uris);
 
-    @Query("select h.app, h.uri, count(distinct (h.ip)) as ehits from hits as h " +
+    @Query("select h.app, h.uri, count(distinct (h.ip)) as ehits from EndpointHit as h " +
             "where h.timestamp > ?1 " +
             "and h.timestamp < ?2 " +
             "and h.uri in ?3 " +
