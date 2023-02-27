@@ -2,28 +2,28 @@ package ru.ewm.stats.service.impl;
 
 import dto.EndpointHitDto;
 import dto.ViewStatsDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.ewm.stats.util.exception.ValidationException;
 import ru.ewm.stats.model.EndpointHit;
 import ru.ewm.stats.repository.EndpointHitRepository;
 import ru.ewm.stats.service.HitService;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static ru.ewm.stats.mapper.EndpointHitMapper.toEndpointHit;
 import static ru.ewm.stats.mapper.EndpointHitMapper.toEndpointHitDto;
 
 @Service
+@RequiredArgsConstructor
 public class HitServiceImpl implements HitService {
 
     private final EndpointHitRepository repository;
-
-    @Autowired
-    public HitServiceImpl(EndpointHitRepository repository) {
-        this.repository = repository;
-    }
+    private final String PATTERN = "yyyy-MM-dd HH:mm:ss";
+    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(PATTERN);
 
     @Transactional
     @Override
@@ -33,10 +33,17 @@ public class HitServiceImpl implements HitService {
     }
 
     @Override
-    public List<ViewStatsDto> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
-        if (unique) {
-            return repository.getStatsUniqueIps(start, end, uris);
+    public List<ViewStatsDto> getStats(String start, String end, List<String> uris, Boolean unique) {
+
+        LocalDateTime startDateTime = LocalDateTime.parse(start, dateTimeFormatter);
+        LocalDateTime endDateTime = LocalDateTime.parse(end, dateTimeFormatter);
+        if (startDateTime.isAfter(LocalDateTime.now())) {
+            throw new ValidationException("Start date might not be in the future");
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return repository.getStats(start, end, uris);
+        if (unique) {
+            return repository.getStatsUniqueIps(startDateTime, endDateTime, uris);
+        }
+        return repository.getStats(startDateTime, endDateTime, uris);
     }
 }

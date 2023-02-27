@@ -1,11 +1,11 @@
 package ru.ewm.stats.mapper;
 
 import dto.EndpointHitDto;
+import lombok.NoArgsConstructor;
 import ru.ewm.stats.model.EndpointHit;
 
+@NoArgsConstructor
 public class EndpointHitMapper {
-    private EndpointHitMapper() {
-    }
 
     public static EndpointHit toEndpointHit(EndpointHitDto hitDto) {
         return new EndpointHit(

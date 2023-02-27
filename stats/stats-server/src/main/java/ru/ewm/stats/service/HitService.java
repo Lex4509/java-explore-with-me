@@ -9,8 +9,8 @@ import java.util.List;
 public interface HitService {
     EndpointHitDto saveNewHit(EndpointHitDto hitDto);
 
-    List<ViewStatsDto> getStats(LocalDateTime start,
-                                LocalDateTime end,
+    List<ViewStatsDto> getStats(String start,
+                                String end,
                                 List<String> uris,
                                 Boolean unique);
 }
