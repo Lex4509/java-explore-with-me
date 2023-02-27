@@ -14,7 +14,8 @@ public interface EndpointHitRepository extends JpaRepository<EndpointHit, Long> 
             " WHERE e.timestamp >= :start" +
             " AND e.timestamp <= :end" +
             " AND e.uri IN :uris" +
-            " GROUP BY e.app, e.uri")
+            " GROUP BY e.app, e.uri" +
+            " order by COUNT(distinct e.ip) desc")
     List<ViewStatsDto> getStats(LocalDateTime start, LocalDateTime end, List<String> uris);
 
     @Query("SELECT new dto.ViewStatsDto(e.app, e.uri, COUNT(distinct e.ip)) " +
@@ -22,6 +23,7 @@ public interface EndpointHitRepository extends JpaRepository<EndpointHit, Long> 
             " WHERE e.timestamp >= :start" +
             " AND e.timestamp <= :end" +
             " AND e.uri IN :uris" +
-            " GROUP BY e.app, e.uri")
+            " GROUP BY e.app, e.uri" +
+            " order by COUNT(distinct e.ip) desc")
     List<ViewStatsDto> getStatsUniqueIps(LocalDateTime start, LocalDateTime end, List<String> uris);
 }
