@@ -12,7 +12,9 @@ import ru.ewm.stats.service.HitService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static ru.ewm.stats.mapper.EndpointHitMapper.toEndpointHit;
 import static ru.ewm.stats.mapper.EndpointHitMapper.toEndpointHitDto;
@@ -41,8 +43,14 @@ public class HitServiceImpl implements HitService {
             throw new ValidationException("Start date might not be in the future");
         }
         if (unique) {
-            return repository.getStatsUniqueIps(startDateTime, endDateTime, uris);
+            return repository.getStatsUniqueIps(startDateTime, endDateTime, uris)
+                    .stream()
+                    .sorted(Comparator.comparing(ViewStatsDto::getHits).reversed())
+                    .collect(Collectors.toList());
         }
-        return repository.getStats(startDateTime, endDateTime, uris);
+        return repository.getStats(startDateTime, endDateTime, uris)
+                .stream()
+                .sorted(Comparator.comparing(ViewStatsDto::getHits).reversed())
+                .collect(Collectors.toList());
     }
 }
