@@ -2,8 +2,8 @@ package ru.ewm.stats.controller;
 
 import dto.EndpointHitDto;
 import dto.ViewStatsDto;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -16,13 +16,9 @@ import java.util.List;
 @RestController
 @Slf4j
 @Validated
+@RequiredArgsConstructor
 public class HitController {
     private final HitService hitService;
-
-    @Autowired
-    public HitController(HitService hitService) {
-        this.hitService = hitService;
-    }
 
     @PostMapping("/hit")
     public ResponseEntity<Object> saveNewHit(@RequestBody @Valid EndpointHitDto hitDto) {
