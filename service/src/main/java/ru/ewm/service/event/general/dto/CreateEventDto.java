@@ -23,20 +23,30 @@ import static ru.ewm.service.util.enums.Constants.DATE_TIME_PATTERN;
 public class CreateEventDto {
     @NotBlank(message = "Blank title")
     @Size(min = 3, max = 120, message = "Invalid title")
-    private String title;@NotBlank(message = "Blank annotation")
+    private String title;
+
     @NotBlank(message = "Blank description")
     @Size(min = 20, max = 7000, message = "Invalid description")
-    private String description;@Size(min = 20, max = 2000, message = "Invalid annotation")
+    private String description;
+
+    @Size(min = 20, max = 2000, message = "Invalid annotation")
+    @NotBlank(message = "Blank annotation")
     private String annotation;
+
     @NotNull(message = "Blank category")
     @Positive(message = "Invalid category")
     private Long category;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_TIME_PATTERN)
     private LocalDateTime eventDate;
+
     @NotNull(message = "Blank location")
     private Location location;
+
     private boolean paid;
+
     private int participantLimit;
+
     @Value("true")
     private boolean requestModeration;
 
