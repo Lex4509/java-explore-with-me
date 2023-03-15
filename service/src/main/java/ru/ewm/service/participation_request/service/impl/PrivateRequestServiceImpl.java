@@ -1,20 +1,20 @@
-package ru.ewm.service.participationRequest.service.impl;
+package ru.ewm.service.participation_request.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.ewm.service.participationRequest.dto.RequestDto;
-import ru.ewm.service.participationRequest.dto.RequestStatusUpdateRequest;
+import ru.ewm.service.participation_request.dto.RequestDto;
+import ru.ewm.service.participation_request.dto.RequestStatusUpdateRequest;
 import ru.ewm.service.util.enums.RequestState;
 import ru.ewm.service.util.enums.State;
 import ru.ewm.service.util.exception.InvalidOperationException;
 import ru.ewm.service.event.general.model.Event;
-import ru.ewm.service.participationRequest.dto.RequestStatusUpdateResult;
-import ru.ewm.service.participationRequest.mapper.RequestMapper;
-import ru.ewm.service.participationRequest.model.ParticipationRequest;
-import ru.ewm.service.participationRequest.repository.RequestRepository;
-import ru.ewm.service.participationRequest.service.CommonRequestService;
-import ru.ewm.service.participationRequest.service.PrivateRequestService;
+import ru.ewm.service.participation_request.dto.RequestStatusUpdateResult;
+import ru.ewm.service.participation_request.mapper.RequestMapper;
+import ru.ewm.service.participation_request.model.ParticipationRequest;
+import ru.ewm.service.participation_request.repository.RequestRepository;
+import ru.ewm.service.participation_request.service.CommonRequestService;
+import ru.ewm.service.participation_request.service.PrivateRequestService;
 import ru.ewm.service.user.model.User;
 import ru.ewm.service.util.validator.EntityValidator;
 
@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static ru.ewm.service.participationRequest.mapper.RequestMapper.toParticipationRequestDto;
+import static ru.ewm.service.participation_request.mapper.RequestMapper.toParticipationRequestDto;
 
 @Service
 @RequiredArgsConstructor
@@ -50,7 +50,7 @@ public class PrivateRequestServiceImpl implements PrivateRequestService {
             throw new InvalidOperationException("Request could not be created by event initiator");
         }
 
-        if (!event.getState().equals(State.PUBLISHED)) {
+        if (!State.PUBLISHED.equals(event.getState())) {
             throw new InvalidOperationException("Event is not published");
         }
 
@@ -123,22 +123,22 @@ public class PrivateRequestServiceImpl implements PrivateRequestService {
         List<RequestDto> requestDtos;
         switch (request.getStatus()) {
             case REJECTED:
-                for (ParticipationRequest r : requestsToUpdate) {
+                for (ParticipationRequest participationRequest : requestsToUpdate) {
 
-                    if (!r.getStatus().equals(RequestState.PENDING)) {
+                    if (!participationRequest.getStatus().equals(RequestState.PENDING)) {
                         throw new InvalidOperationException("Request must be in PENDING");
                     }
 
-                    r.setStatus(RequestState.REJECTED);
+                    participationRequest.setStatus(RequestState.REJECTED);
                 }
                 requestDtos = requestRepository.saveAll(requestsToUpdate)
                         .stream().map(RequestMapper::toParticipationRequestDto).collect(Collectors.toList());
                 requestStatusUpdateResult.setRejectedRequests(requestDtos);
                 break;
             case CONFIRMED:
-                for (ParticipationRequest r : requestsToUpdate) {
+                for (ParticipationRequest participationRequest : requestsToUpdate) {
 
-                    if (!r.getStatus().equals(RequestState.PENDING)) {
+                    if (!participationRequest.getStatus().equals(RequestState.PENDING)) {
                         throw new InvalidOperationException("Request must be in PENDING");
                     }
 
@@ -146,7 +146,7 @@ public class PrivateRequestServiceImpl implements PrivateRequestService {
                         throw new InvalidOperationException("Limit is over");
                     }
 
-                    r.setStatus(RequestState.CONFIRMED);
+                    participationRequest.setStatus(RequestState.CONFIRMED);
                     confirmedRequests++;
                 }
                 requestDtos = requestRepository.saveAll(requestsToUpdate)

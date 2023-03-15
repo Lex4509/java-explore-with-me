@@ -1,4 +1,4 @@
-package ru.ewm.service.participationRequest.dto;
+package ru.ewm.service.participation_request.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

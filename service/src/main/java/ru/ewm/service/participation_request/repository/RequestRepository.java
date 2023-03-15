@@ -1,9 +1,9 @@
-package ru.ewm.service.participationRequest.repository;
+package ru.ewm.service.participation_request.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import ru.ewm.service.util.enums.RequestState;
 import ru.ewm.service.event.general.model.Event;
-import ru.ewm.service.participationRequest.model.ParticipationRequest;
+import ru.ewm.service.participation_request.model.ParticipationRequest;
 
 import java.util.List;
 import java.util.Optional;

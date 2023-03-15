@@ -16,8 +16,8 @@ import ru.ewm.service.event.general.model.Event;
 import ru.ewm.service.event.general.repository.EventRepository;
 import ru.ewm.service.event.general.service.CommonEventService;
 import ru.ewm.service.event.partial.service.PrivateEventService;
-import ru.ewm.service.participationRequest.model.ParticipationRequest;
-import ru.ewm.service.participationRequest.service.CommonRequestService;
+import ru.ewm.service.participation_request.model.ParticipationRequest;
+import ru.ewm.service.participation_request.service.CommonRequestService;
 import ru.ewm.service.user.model.User;
 import ru.ewm.service.util.validator.EntityValidator;
 
@@ -110,6 +110,8 @@ public class PrivateEventServiceImpl implements PrivateEventService {
             case CANCEL_REVIEW:
                 updatedEvent.setState(State.CANCELED);
                 break;
+            default:
+                throw new InvalidOperationException("Invalid state");
         }
         return toEventFullDto(eventRepository.save(updatedEvent));
     }

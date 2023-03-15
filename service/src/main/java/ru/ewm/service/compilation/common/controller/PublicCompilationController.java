@@ -8,6 +8,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.ewm.service.compilation.common.service.PublicCompilationService;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+
 @RestController
 @RequestMapping(path = "/compilations")
 @Slf4j
@@ -25,8 +28,8 @@ public class PublicCompilationController {
 
     @GetMapping
     public ResponseEntity<Object> findCompilations(@RequestParam(name = "pinned", required = false) boolean pinned,
-                                                   @RequestParam(name = "from", defaultValue = "0") long from,
-                                                   @RequestParam(name = "size", defaultValue = "10") int size) {
+                                                   @RequestParam(name = "from", defaultValue = "0") @Min(0) long from,
+                                                   @RequestParam(name = "size", defaultValue = "10") @Min(1) int size) {
         log.info("Find compilation from {}, page size {}", from, size);
         return new ResponseEntity<>(publicCompilationService.findCompilations(pinned, from, size), HttpStatus.OK);
     }

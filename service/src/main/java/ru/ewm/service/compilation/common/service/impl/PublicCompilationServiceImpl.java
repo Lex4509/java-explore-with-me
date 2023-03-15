@@ -12,8 +12,8 @@ import ru.ewm.service.compilation.common.service.PublicCompilationService;
 import ru.ewm.service.event.general.dto.ShortEventDto;
 import ru.ewm.service.event.general.model.Event;
 import ru.ewm.service.event.general.service.CommonEventService;
-import ru.ewm.service.participationRequest.model.ParticipationRequest;
-import ru.ewm.service.participationRequest.service.CommonRequestService;
+import ru.ewm.service.participation_request.model.ParticipationRequest;
+import ru.ewm.service.participation_request.service.CommonRequestService;
 import ru.ewm.service.util.validator.EntityValidator;
 
 import java.util.List;

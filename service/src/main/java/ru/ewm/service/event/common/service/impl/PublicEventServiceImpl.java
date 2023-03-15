@@ -12,8 +12,8 @@ import ru.ewm.service.event.general.model.Event;
 import ru.ewm.service.event.general.repository.EventRepository;
 import ru.ewm.service.event.general.service.CommonEventService;
 import ru.ewm.service.event.common.service.PublicEventService;
-import ru.ewm.service.participationRequest.model.ParticipationRequest;
-import ru.ewm.service.participationRequest.service.CommonRequestService;
+import ru.ewm.service.participation_request.model.ParticipationRequest;
+import ru.ewm.service.participation_request.service.CommonRequestService;
 import ru.ewm.service.util.validator.EntityValidator;
 import ru.ewm.stats.client.web.HitsClient;
 
@@ -41,7 +41,7 @@ public class PublicEventServiceImpl implements PublicEventService {
     @Override
     public FullEventDto getEvent(Long id, HttpServletRequest request) {
         Event eventToReturn = entityValidator.checkIfEventExist(id);
-        if (!eventToReturn.getState().equals(State.PUBLISHED)) {
+        if (!State.PUBLISHED.equals(eventToReturn.getState())) {
             throw new NotFoundException(id, Event.class.getSimpleName());
         }
 

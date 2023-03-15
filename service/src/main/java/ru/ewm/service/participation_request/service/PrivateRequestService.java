@@ -1,8 +1,8 @@
-package ru.ewm.service.participationRequest.service;
+package ru.ewm.service.participation_request.service;
 
-import ru.ewm.service.participationRequest.dto.RequestDto;
-import ru.ewm.service.participationRequest.dto.RequestStatusUpdateRequest;
-import ru.ewm.service.participationRequest.dto.RequestStatusUpdateResult;
+import ru.ewm.service.participation_request.dto.RequestDto;
+import ru.ewm.service.participation_request.dto.RequestStatusUpdateRequest;
+import ru.ewm.service.participation_request.dto.RequestStatusUpdateResult;
 
 import java.util.List;
 

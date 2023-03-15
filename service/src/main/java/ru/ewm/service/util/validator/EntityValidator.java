@@ -9,8 +9,8 @@ import ru.ewm.service.compilation.general.repository.CompilationRepository;
 import ru.ewm.service.util.exception.NotFoundException;
 import ru.ewm.service.event.general.model.Event;
 import ru.ewm.service.event.general.repository.EventRepository;
-import ru.ewm.service.participationRequest.model.ParticipationRequest;
-import ru.ewm.service.participationRequest.repository.RequestRepository;
+import ru.ewm.service.participation_request.model.ParticipationRequest;
+import ru.ewm.service.participation_request.repository.RequestRepository;
 import ru.ewm.service.user.model.User;
 import ru.ewm.service.user.repository.UserRepository;
 

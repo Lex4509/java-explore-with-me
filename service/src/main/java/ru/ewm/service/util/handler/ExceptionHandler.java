@@ -9,6 +9,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import ru.ewm.service.util.exception.AccessException;
 import ru.ewm.service.util.exception.ErrorApi;
 import ru.ewm.service.util.exception.NotFoundException;
 import ru.ewm.service.util.exception.InvalidOperationException;
@@ -88,7 +89,7 @@ public class ExceptionHandler {
         String message = e.getMessage();
         log.warn(message);
         ErrorApi errorApi = new ErrorApi();
-        errorApi.setStatus(HttpStatus.FORBIDDEN.name());
+        errorApi.setStatus(HttpStatus.CONFLICT.name());
         errorApi.setReason("Invalid operation");
         errorApi.setMessage(message);
         errorApi.setTimestamp(LocalDateTime.now());
@@ -113,5 +114,18 @@ public class ExceptionHandler {
     public ErrorApi handleThrowable(final Throwable e) {
         log.warn(e.getMessage());
         return null;
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorApi handleAccessException(final AccessException e) {
+        String message = e.getMessage();
+        log.warn(message);
+        ErrorApi errorApi = new ErrorApi();
+        errorApi.setStatus(HttpStatus.CONFLICT.name());
+        errorApi.setReason("Access error");
+        errorApi.setMessage(message);
+        errorApi.setTimestamp(LocalDateTime.now());
+        return errorApi;
     }
 }

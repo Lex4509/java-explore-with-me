@@ -71,6 +71,8 @@ public class AdminEventServiceImpl implements AdminEventService {
             case REJECT_EVENT:
                 updatedEvent.setState(State.CANCELED);
                 break;
+            default:
+                throw new InvalidOperationException("Invalid state");
         }
         return toEventFullDto(eventRepository.save(updatedEvent));
     }

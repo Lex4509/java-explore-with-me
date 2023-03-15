@@ -1,4 +1,4 @@
-package ru.ewm.service.participationRequest.controller;
+package ru.ewm.service.participation_request.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,8 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.ewm.service.participationRequest.dto.RequestStatusUpdateRequest;
-import ru.ewm.service.participationRequest.service.PrivateRequestService;
+import ru.ewm.service.participation_request.dto.RequestStatusUpdateRequest;
+import ru.ewm.service.participation_request.service.PrivateRequestService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

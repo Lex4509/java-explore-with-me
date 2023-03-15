@@ -1,4 +1,4 @@
-package ru.ewm.service.participationRequest.model;
+package ru.ewm.service.participation_request.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

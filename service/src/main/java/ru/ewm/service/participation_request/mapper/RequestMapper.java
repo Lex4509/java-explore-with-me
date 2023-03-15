@@ -1,9 +1,9 @@
-package ru.ewm.service.participationRequest.mapper;
+package ru.ewm.service.participation_request.mapper;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import ru.ewm.service.participationRequest.dto.RequestDto;
-import ru.ewm.service.participationRequest.model.ParticipationRequest;
+import ru.ewm.service.participation_request.dto.RequestDto;
+import ru.ewm.service.participation_request.model.ParticipationRequest;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RequestMapper {
