@@ -8,7 +8,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.ewm.service.compilation.common.service.PublicCompilationService;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Min;
 
 @RestController
