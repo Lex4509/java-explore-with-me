@@ -94,7 +94,7 @@ public class PublicEventServiceImpl implements PublicEventService {
         hitsClient.saveNewHit(APP_NAME, "/events", ip, timestamp);
         foundEvents.forEach(event -> hitsClient.saveNewHit(APP_NAME, "/events/" + event.getId(), ip, timestamp));
 
-        if (sort != null && sort.equals(SortTypes.VIEWS)) {
+        if (SortTypes.VIEWS.equals(sort)) {
             return fullEventDtos.stream()
                     .sorted(Comparator.comparing(FullEventDto::getViews)).collect(Collectors.toList());
         }

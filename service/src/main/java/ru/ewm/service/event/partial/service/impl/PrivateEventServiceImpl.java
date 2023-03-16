@@ -85,7 +85,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
             throw new NotFoundException(eventId, Event.class.getSimpleName());
         }
         FullEventDto fullEventDto = toEventFullDto(eventToReturn);
-        if (fullEventDto.getState().equals(State.PUBLISHED)) {
+        if (State.PUBLISHED.equals(fullEventDto.getState())) {
             Map<Long, Long> views = commonEventService.getStats(List.of(eventToReturn), false);
             fullEventDto.setViews(views.get(eventToReturn.getId()));
 

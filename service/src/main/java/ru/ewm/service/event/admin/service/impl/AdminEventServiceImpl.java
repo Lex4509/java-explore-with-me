@@ -57,7 +57,7 @@ public class AdminEventServiceImpl implements AdminEventService {
         if (eventToUpdate.getEventDate().isBefore(LocalDateTime.now().plusHours(1))) {
             throw new InvalidOperationException("Invalid event date");
         }
-        if (!eventToUpdate.getState().equals(State.PENDING)) {
+        if (!State.PENDING.equals(eventToUpdate.getState())) {
             throw new InvalidOperationException(
                     String.format("Invalid state: %s",
                             eventToUpdate.getState().name()));

@@ -125,7 +125,7 @@ public class PrivateRequestServiceImpl implements PrivateRequestService {
             case REJECTED:
                 for (ParticipationRequest participationRequest : requestsToUpdate) {
 
-                    if (!participationRequest.getStatus().equals(RequestState.PENDING)) {
+                    if (!RequestState.PENDING.equals(participationRequest.getStatus())) {
                         throw new InvalidOperationException("Request must be in PENDING");
                     }
 
@@ -138,7 +138,7 @@ public class PrivateRequestServiceImpl implements PrivateRequestService {
             case CONFIRMED:
                 for (ParticipationRequest participationRequest : requestsToUpdate) {
 
-                    if (!participationRequest.getStatus().equals(RequestState.PENDING)) {
+                    if (!RequestState.PENDING.equals(participationRequest.getStatus())) {
                         throw new InvalidOperationException("Request must be in PENDING");
                     }
 
@@ -153,6 +153,8 @@ public class PrivateRequestServiceImpl implements PrivateRequestService {
                         .stream().map(RequestMapper::toParticipationRequestDto).collect(Collectors.toList());
                 requestStatusUpdateResult.setConfirmedRequests(requestDtos);
                 break;
+            default:
+                throw new InvalidOperationException("Invalid status");
         }
         return requestStatusUpdateResult;
     }

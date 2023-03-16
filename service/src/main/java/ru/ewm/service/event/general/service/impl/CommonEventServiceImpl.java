@@ -33,7 +33,7 @@ public class CommonEventServiceImpl implements CommonEventService {
 
     @Override
     public Event updateEvent(Event eventToUpdate, UpdateEventRequest updateEventRequest) {
-        if (eventToUpdate.getState().equals(State.PUBLISHED)) {
+        if (State.PUBLISHED.equals(eventToUpdate.getState())) {
             throw new InvalidOperationException("Invalid state");
         }
         if (updateEventRequest.getAnnotation() != null) {
