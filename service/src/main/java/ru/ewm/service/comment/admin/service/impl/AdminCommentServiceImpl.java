@@ -13,7 +13,7 @@ import ru.ewm.service.event.general.repository.EventRepository;
 import ru.ewm.service.user.repository.UserRepository;
 import ru.ewm.service.util.enums.SortOrder;
 
-import java.util.Collection;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,24 +25,24 @@ public class AdminCommentServiceImpl implements AdminCommentService {
     private final CommentService commentService;
 
     @Override
-    public Collection<FullCommentDto> getByUserId(long userId, SortOrder sortOrder, int from, int size) {
+    public List<FullCommentDto> getByUserId(long userId, SortOrder sortOrder, int from, int size) {
         userRepository.getReferenceById(userId);
-        if (sortOrder.equals(SortOrder.ASC)) {
-            return CommentMapper.toFullCommentDtoCollection(
+        if (SortOrder.ASC.equals(sortOrder)) {
+            return CommentMapper.toFullCommentDtoList(
                     commentRepository.findAllByAuthorIdOrderByCreatedOnAsc(userId, PageRequest.of(from, size))
             );
         }
-        return CommentMapper.toFullCommentDtoCollection(
+        return CommentMapper.toFullCommentDtoList(
                 commentRepository.findAllByAuthorIdOrderByCreatedOnDesc(userId, PageRequest.of(from, size))
         );
     }
 
     @Override
-    public Collection<Comment> getByUserIdEventId(long userId, long eventId, SortOrder sortOrder, int from, int size) {
+    public List<Comment> getByUserIdEventId(long userId, long eventId, SortOrder sortOrder, int from, int size) {
         userRepository.getReferenceById(userId);
         eventRepository.getReferenceById(eventId);
 
-        if (sortOrder.equals(SortOrder.ASC)) {
+        if (SortOrder.ASC.equals(sortOrder)) {
             return commentRepository
                     .findAllByAuthorIdAndEventIdOrderByCreatedOnAsc(userId, eventId, PageRequest.of(from, size));
         }

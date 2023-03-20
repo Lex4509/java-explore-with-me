@@ -10,7 +10,7 @@ import ru.ewm.service.util.enums.SortOrder;
 
 import javax.validation.constraints.Min;
 import java.sql.Timestamp;
-import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/comments")
@@ -22,7 +22,7 @@ public class PublicCommentController {
     private final PublicCommentService publicCommentService;
 
     @GetMapping("{eventId}")
-    public Collection<FullCommentDto> getAllByEventId(
+    public List<FullCommentDto> getAllByEventId(
             @PathVariable @Min(0) long eventId,
             @RequestParam(defaultValue = "DESC") SortOrder sortOrder,
             @RequestParam(defaultValue = "0", required = false) @Min(0) int from,
@@ -32,7 +32,7 @@ public class PublicCommentController {
     }
 
     @GetMapping
-    public Collection<FullCommentDto> getFilteredComments(
+    public List<FullCommentDto> getFilteredComments(
             @RequestParam(required = false) String text,
             @RequestParam(required = false) Timestamp startDate,
             @RequestParam(required = false) Timestamp endDate,

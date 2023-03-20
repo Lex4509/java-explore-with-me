@@ -12,7 +12,7 @@ import ru.ewm.service.comment.general.service.CommentService;
 import ru.ewm.service.util.enums.SortOrder;
 
 import javax.validation.constraints.Min;
-import java.util.Collection;
+import java.util.List;
 
 @Validated
 @RestController
@@ -40,7 +40,7 @@ public class AdminCommentController {
     }
 
     @GetMapping("{userId}/users")
-    public Collection<FullCommentDto> getAllByUserId(
+    public List<FullCommentDto> getAllByUserId(
             @PathVariable @Min(0) long userId,
             @RequestParam(defaultValue = "DESC") SortOrder sortOrder,
             @RequestParam(defaultValue = "0", required = false) @Min(0) int from,
@@ -50,14 +50,14 @@ public class AdminCommentController {
     }
 
     @GetMapping("{userId}/users/{eventId}/events")
-    public Collection<FullCommentDto> getByUserIdEventId(
+    public List<FullCommentDto> getByUserIdEventId(
             @PathVariable @Min(0) long userId,
             @PathVariable @Min(0) long eventId,
             @RequestParam(defaultValue = "DESC") SortOrder sortOrder,
             @RequestParam(defaultValue = "0", required = false) @Min(0) int from,
             @RequestParam(defaultValue = "10", required = false) @Min(1) int size) {
         log.info("GET comments userId {} eventId {} from {} size {}", userId, eventId, from, size);
-        return CommentMapper.toFullCommentDtoCollection(
+        return CommentMapper.toFullCommentDtoList(
                 adminCommentService.getByUserIdEventId(userId, eventId, sortOrder, from, size));
     }
 

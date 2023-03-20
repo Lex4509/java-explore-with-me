@@ -4,13 +4,13 @@ import ru.ewm.service.comment.general.dto.FullCommentDto;
 import ru.ewm.service.comment.general.model.Comment;
 import ru.ewm.service.util.enums.SortOrder;
 
-import java.util.Collection;
+import java.util.List;
 
 public interface AdminCommentService {
 
-    Collection<FullCommentDto> getByUserId(long userId, SortOrder sort, int from, int size);
+    List<FullCommentDto> getByUserId(long userId, SortOrder sort, int from, int size);
 
-    Collection<Comment> getByUserIdEventId(long userId, long eventId, SortOrder sort, int from, int size);
+    List<Comment> getByUserIdEventId(long userId, long eventId, SortOrder sort, int from, int size);
 
     void deleteByIdForAdmin(long commentId);
 

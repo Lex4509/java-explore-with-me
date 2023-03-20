@@ -6,17 +6,11 @@ import ru.ewm.service.comment.general.model.Comment;
 import ru.ewm.service.event.general.mapper.EventMapper;
 import ru.ewm.service.user.mapper.UserMapper;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class CommentMapper {
     public static Comment toComment(CreateUpdateCommentDto dto) {
-        return Comment.builder()
-                .text(dto.getText())
-                .build();
-    }
-
-    public static Comment toComment(FullCommentDto dto) {
         return Comment.builder()
                 .text(dto.getText())
                 .build();
@@ -33,7 +27,7 @@ public class CommentMapper {
                 .build();
     }
 
-    public static Collection<FullCommentDto> toFullCommentDtoCollection(Collection<Comment> comments) {
+    public static List<FullCommentDto> toFullCommentDtoList(List<Comment> comments) {
         return comments.stream()
                 .map(CommentMapper::toFullCommentDto)
                 .collect(Collectors.toList());

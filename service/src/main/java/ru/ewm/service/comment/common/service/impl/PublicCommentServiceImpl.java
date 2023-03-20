@@ -12,43 +12,45 @@ import ru.ewm.service.util.enums.SortOrder;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Collection;
+import java.util.List;
+
+import static ru.ewm.service.util.enums.Constants.COMMENT_START_DATE_OFFSET;
 
 @Service
 @RequiredArgsConstructor
-public class PublicAdminServiceImpl implements PublicCommentService {
+public class PublicCommentServiceImpl implements PublicCommentService {
 
     private final CommentRepository commentRepository;
     private final EventRepository eventRepository;
 
     @Override
-    public Collection<FullCommentDto> getByEventId(long eventId, SortOrder sortOrder, int from, int size) {
+    public List<FullCommentDto> getByEventId(long eventId, SortOrder sortOrder, int from, int size) {
         eventRepository.getReferenceById(eventId);
-        if (sortOrder.equals(SortOrder.ASC)) {
-            return CommentMapper.toFullCommentDtoCollection(
+        if (SortOrder.ASC.equals(sortOrder)) {
+            return CommentMapper.toFullCommentDtoList(
                     commentRepository.findAllByEventIdOrderByCreatedOnAsc(eventId, PageRequest.of(from, size))
             );
         }
-        return CommentMapper.toFullCommentDtoCollection(
+        return CommentMapper.toFullCommentDtoList(
                 commentRepository.findAllByEventIdOrderByCreatedOnDesc(eventId, PageRequest.of(from, size))
         );
     }
 
     @Override
-    public Collection<FullCommentDto> getAllByParams(String text, Timestamp startDate, Timestamp endDate, SortOrder sortOrder) {
+    public List<FullCommentDto> getAllByParams(String text, Timestamp startDate, Timestamp endDate, SortOrder sortOrder) {
         if (startDate == null)
-            startDate = Timestamp.valueOf(LocalDateTime.now().minusYears(2));
+            startDate = Timestamp.valueOf(LocalDateTime.now().minusYears(COMMENT_START_DATE_OFFSET));
         if (endDate == null)
             endDate = Timestamp.valueOf(LocalDateTime.now());
         if (text != null) text = text.toLowerCase();
 
-        if (sortOrder == null || sortOrder.equals(SortOrder.ASC)) {
-            return CommentMapper.toFullCommentDtoCollection(commentRepository.findByParamsAsc(
+        if (sortOrder == null || SortOrder.ASC.equals(sortOrder)) {
+            return CommentMapper.toFullCommentDtoList(commentRepository.findByParamsAsc(
                     text,
                     startDate,
                     endDate));
         } else {
-            return CommentMapper.toFullCommentDtoCollection(commentRepository.findByParamsDesc(
+            return CommentMapper.toFullCommentDtoList(commentRepository.findByParamsDesc(
                     text,
                     startDate,
                     endDate));
